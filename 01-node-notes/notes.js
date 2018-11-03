@@ -1,19 +1,50 @@
 console.log("Starting notes.js");
 
+const fs = require("fs");
+
 var addNote = (title, body) => {
-  console.log("ADDING NOTE : \n", title, body);
+  console.log("*** In addNote()\nADDING NOTE : \n", title, body);
+  let notes = [];
+  let note = { title, body };
+
+  try {
+    let notesString = fs.readFileSync("notes-data.json");
+    notes = JSON.parse(notesString);
+  } catch (e) {}
+
+  let duplicateNotes = notes.filter(note => note.title === title);
+  if (duplicateNotes.length === 0) {
+    notes.push(note);
+
+    fs.writeFileSync("notes-data.json", JSON.stringify(notes));
+
+    console.log(
+      "SUCCCESS : note added to notes-data.json\n--- Leaving addNote()"
+    );
+  } else {
+    console.log(
+      "FAIL : note already exists in notes-data.json\n--- Leaving addNote()"
+    );
+  }
 };
 
 var getAll = () => {
-  console.log("LISTING NOTES : \n");
+  console.log("*** In getAll()\nLISTING NOTES : \n");
+  console.log("SUCCCESS : all notes fetched\n--- Leaving getAll()");
 };
 
 var getNote = title => {
-  console.log("READING NOTE : \n", title);
+  console.log("*** In getNote()\nREADING NOTE : \n", title);
+  console.log(
+    `SUCCCESS : note with title "${title}" fetched\n--- Leaving getNote()`
+  );
 };
 
 var removeNote = title => {
-  console.log("REMOVING NOTE : \n", title);
+  console.log("*** In removeNote()\nREMOVING NOTE : \n", title);
+  console.log(
+    'SUCCCESS : note with title "${title}" removed\n--- Leaving addNote()'
+  );
 };
 
 module.exports = {
