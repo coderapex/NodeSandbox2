@@ -1,28 +1,39 @@
-console.log("Starting app.");
+console.log("Starting app.js");
 
+// shortform for console.log
+function log(v) {
+  console.log(v);
+}
+
+// npm modules below
 const fs = require("fs");
-const os = require("os");
 const _ = require("lodash");
+const yargs = require("yargs");
+
+// custom modules below
 const notes = require("./notes");
 
-let user = os.userInfo();
+// viewing the argument options
+// log(process.argv);
 
-// console.log("User info fetched : ");
-// console.log(user);
+const argv = yargs.argv;
+let command = yargs.argv._[0];
+log(`COMMAND : ${command}`);
+console.log("YARGS : ", argv);
 
-let res = notes.addNote();
-console.log(res);
-
-res = notes.add(1, 4);
-console.log(res);
-
-fs.appendFile("greetings.txt", `Hello, ${user.username}\n`, function(err) {
-  if (err) {
-    console.log("There was a problem with writing the file. \nERROR : ");
-    console.log(err);
-  } else console.log("File Written");
-});
-
-// fs.appendFile("greetings.txt","Hello World!!");
-
-console.log("app.js execution completed.");
+// performing different actions based on the command arguments
+if (command === "add") {
+  log("COMMAND ADD activated");
+  notes.addNote(argv.title, argv.body);
+} else if (command === "list") {
+  log("COMMAND LIST activated");
+  notes.getAll();
+} else if (command === "read") {
+  log("COMMAND READ activated");
+  notes.getNote(argv.title);
+} else if (command === "remove") {
+  log("COMMAND REMOVE activated");
+  notes.removeNote(argv.title);
+} else {
+  log("NO COMMAND or command not recognized");
+}
