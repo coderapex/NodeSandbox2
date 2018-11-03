@@ -24,7 +24,11 @@ console.log("YARGS : ", argv);
 // performing different actions based on the command arguments
 if (command === "add") {
   log("COMMAND ADD activated");
-  notes.addNote(argv.title, argv.body);
+  let note = notes.addNote(argv.title, argv.body);
+  // console.log(note);
+
+  if (note) console.log("SUCCESS - Returned to app.js.");
+  else console.log("FAIL - Returned to app.js.");
 } else if (command === "list") {
   log("COMMAND LIST activated");
   notes.getAll();
