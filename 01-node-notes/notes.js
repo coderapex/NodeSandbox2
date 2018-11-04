@@ -42,11 +42,33 @@ var addNote = (title, body) => {
 
 var getAll = () => {
   console.log("*** In getAll()\nLISTING NOTES : \n");
+  let allNotes = fetchNotes();
+  allNotes.forEach(note => {
+    console.log(`Title : ${note.title}\n -- Body : ${note.body}`);
+  });
   console.log("SUCCCESS : all notes fetched\n--- Leaving getAll()");
 };
 
 var getNote = title => {
   console.log("*** In getNote()\nREADING NOTE : \n", title);
+
+  // fetch full list
+  let allNotes = fetchNotes();
+  console.log("-- Fetching all notes");
+  // console.log(allNotes);
+
+  // filter the item you want
+  console.log("-- Filtering notes");
+  let note = allNotes.filter(current => {
+    // console.log(`Current: ${current.title} Wanted: ${title}`);
+
+    if (current.title === title) return current;
+  });
+
+  // display the item you want
+  console.log(`The required note is`);
+  console.log(note);
+
   console.log(
     `SUCCCESS : note with title "${title}" fetched\n--- Leaving getNote()`
   );
@@ -54,8 +76,19 @@ var getNote = title => {
 
 var removeNote = title => {
   console.log("*** In removeNote()\nREMOVING NOTE : \n", title);
+
+  let allNotes = fetchNotes();
+  console.log("All Notes : \n", allNotes);
+
+  let alteredNotes = [];
+  alteredNotes = allNotes.filter(note => title != note.title);
+  // allNotes.filter(note => { note.title === title; });
+  console.log("Altered Notes : \n", alteredNotes);
+
+  saveNotes(alteredNotes);
+
   console.log(
-    'SUCCCESS : note with title "${title}" removed\n--- Leaving addNote()'
+    `SUCCCESS : note with title "${title}" removed\n--- Leaving removeNote()`
   );
 };
 

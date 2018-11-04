@@ -24,6 +24,7 @@ console.log("YARGS : ", argv);
 // performing different actions based on the command arguments
 if (command === "add") {
   log("COMMAND ADD activated");
+  // node app.js add --title="Title0" --body="Body0"
   let note = notes.addNote(argv.title, argv.body);
   // console.log(note);
 
@@ -31,9 +32,11 @@ if (command === "add") {
   else console.log("FAIL - Returned to app.js.");
 } else if (command === "list") {
   log("COMMAND LIST activated");
+  // node app.js list
   notes.getAll();
 } else if (command === "read") {
   log("COMMAND READ activated");
+  // node app.js read --title="Title0"
   notes.getNote(argv.title);
 } else if (command === "remove") {
   log("COMMAND REMOVE activated");
