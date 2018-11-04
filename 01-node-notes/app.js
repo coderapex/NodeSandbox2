@@ -1,5 +1,3 @@
-console.log("Starting app.js");
-
 // shortform for console.log
 function log(v) {
   console.log(v);
@@ -16,10 +14,36 @@ const notes = require("./notes");
 // viewing the argument options
 // log(process.argv);
 
-const argv = yargs.argv;
+const argv = yargs
+  .command("add", "Add a new note", {
+    title: {
+      describe: "Title of the note",
+      demand: true,
+      alias: "t"
+    },
+    body: {
+      describe: "Body of the note",
+      demand: true,
+      alias: "b"
+    }
+  })
+  .command("list", "List all notes saved on the system")
+  .command("read", "Read a note with a given title", {
+    title: {
+      describe: "Title of the note",
+      demand: true,
+      alias: "t"
+    }
+  })
+  .command("remove", "Remove a note with a given title", {
+    title: {
+      describe: "Title of the note",
+      demand: true,
+      alias: "t"
+    }
+  })
+  .help().argv;
 let command = yargs.argv._[0];
-log(`COMMAND : ${command}`);
-console.log("YARGS : ", argv);
 
 // performing different actions based on the command arguments
 if (command === "add") {

@@ -1,5 +1,3 @@
-console.log("Starting notes.js");
-
 const fs = require("fs");
 
 let fetchNotes = () => {
@@ -41,10 +39,10 @@ var addNote = (title, body) => {
 };
 
 var getAll = () => {
-  console.log("*** In getAll()\nLISTING NOTES : \n");
   let allNotes = fetchNotes();
+  console.log(`*** In getAll()\nLISTING ALL ${allNotes.length} NOTES : \n`);
   allNotes.forEach(note => {
-    console.log(`Title : ${note.title}\n -- Body : ${note.body}`);
+    console.log(`---\nTitle : ${note.title}\nBody : ${note.body}`);
   });
   console.log("SUCCCESS : all notes fetched\n--- Leaving getAll()");
 };
